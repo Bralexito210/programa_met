@@ -8,30 +8,28 @@ package Models;
  *
  * @author david
  */
-public class Persona {
-    protected  int DNI;
-    protected  String nombre;
-    protected  String apellido;
-
-    public Persona() {
-    }
-    
-    
-    public Persona(int DNI, String nombre, String apellido) {
+public abstract class Persona {
+    private  int DNI;
+    private  String nombre;
+    private  String apellido;
+    private  String anio;
+  
+    public Persona(int DNI, String nombre, String apellido,String anio) {
         this.DNI = DNI;
         this.nombre = nombre;
         this.apellido = apellido;
+        this.anio = anio;
     }
 
-    protected int getDNI() {
+    public int getDNI() {
         return DNI;
     }
 
-    protected String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    protected String getApellido() {
+    public String getApellido() {
         return apellido;
     }
 
@@ -46,4 +44,15 @@ public class Persona {
     public void setApellido(String apellido) {
         this.apellido = apellido;
     }
+
+    public String getAnio() {
+        return anio;
+    }
+
+    public void setAnio(String anio) {
+        this.anio = anio;
+    }
+    
+    public abstract String anio();
+    
  }

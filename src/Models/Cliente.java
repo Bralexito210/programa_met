@@ -4,6 +4,9 @@
  */
 package Models;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 /**
@@ -12,14 +15,12 @@ import java.util.Date;
  */
 public class Cliente extends Persona {
     private String dirreccion; // para realizar visitas si se planea ocmo politicas
-    private Date fec_nac;
-    private int sexo;
+    private String sexo;
 
 
-    public Cliente(int DNI, String nombre, String apellido, String dirreccion, Date fec_nac, int sexo) {
-        super(DNI, nombre, apellido);
+    public Cliente(int DNI, String nombre, String apellido,String anio, String dirreccion, String sexo) {
+        super(DNI, nombre, apellido,anio);
         this.dirreccion = dirreccion;
-        this.fec_nac = fec_nac;
         this.sexo = sexo;
     }
 
@@ -31,22 +32,24 @@ public class Cliente extends Persona {
         this.dirreccion = dirreccion;
     }
 
-    public Date getFec_nac() {
-        return fec_nac;
-    }
 
-    public void setFec_nac(Date fec_nac) {
-        this.fec_nac = fec_nac;
-    }
-
-    public int getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(int sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
-    
+
+    @Override
+    public String anio() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(super.getAnio(), formatter);
+        LocalDate ahora = LocalDate.now();
+        Period periodo = Period.between(localDate, ahora);
+
+        return periodo.getYears()+"";
+    }
     
     
     

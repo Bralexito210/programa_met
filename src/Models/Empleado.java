@@ -6,23 +6,20 @@ package Models;
 
 import java.util.Date;
 
-/**
- *
- * @author david
- */
+
 public class Empleado extends Persona {
     private int codigo;
     private String cargo;
-    private Date fec_inil; //
     private int estado;
+    private int codD;
     private String contraseña;
 
-    public Empleado(int DNI, String nombre, String apellido, int codigo, String cargo, Date fec_inil, int estado, String contraseña) {
-        super(DNI, nombre, apellido);
+    public Empleado(int DNI, String nombre, String apellido,String anio, int codigo, String cargo, int estado,int codD, String contraseña) {
+        super(DNI, nombre, apellido,anio);
         this.codigo = codigo;
         this.cargo = cargo;
-        this.fec_inil = fec_inil;
         this.estado = estado;
+        this.codD = codD;
         this.contraseña = contraseña;
     }
 
@@ -34,9 +31,6 @@ public class Empleado extends Persona {
         return cargo;
     }
 
-    public Date getFec_inil() {
-        return fec_inil;
-    }
 
     public int getEstado() {
         return estado;
@@ -54,9 +48,6 @@ public class Empleado extends Persona {
         this.cargo = cargo;
     }
 
-    public void setFec_inil(Date fec_inil) {
-        this.fec_inil = fec_inil;
-    }
 
     public void setEstado(int estado) {
         this.estado = estado;
@@ -65,6 +56,20 @@ public class Empleado extends Persona {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    public int getCodD() {
+        return codD;
+    }
+
+    public void setCodD(int codD) {
+        this.codD = codD;
+    }
+
+    @Override
+    public String anio() {
+        return super.getAnio();
+    }
+    
     
     
     
