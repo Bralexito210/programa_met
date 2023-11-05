@@ -30,7 +30,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
     //
     private ArrayList<Persona> per;
     DateTimeFormatter formato_Fec = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    
+    public int deleteEmp;
     public frmEmpleado() {
         per = new ArrayList<Persona>();
         this.setLayout(null);
@@ -39,7 +39,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
         txtCod.setVisible(false);
         edit(false);
         carga_model();
-        btnGuardar.setEnabled(false);
+        estado_btn(false,true,false,false, true);
     }
     
     private void carga_model(){
@@ -66,20 +66,53 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
         txtCod.setEnabled(estado);
         txtContrasena.setEnabled(estado);
     }
+    private void limpiar(){
+        txtDNI.setText("");
+        txtNombre.setText("");
+        txtApellido.setText("");
+        cbxCargo.setSelectedIndex(0);
+        txtCod.setText("");
+        txtContrasena.setText("");
+    }
     private void cargar_listas(){   
         for(Persona persona: per){
             listCod.addElement(((Empleado)persona).getCodigo());
             listNom.addElement(persona.getNombre());
             listApe.addElement(persona.getApellido());
             listCarg.addElement(((Empleado)persona).getCargo());
-            if(((Empleado)persona).getCargo().equalsIgnoreCase("1"))
-                listCOD.addElement(((Empleado)persona).getCargo());
+            if(((Empleado)persona).getCargo().equalsIgnoreCase("Dentinta"))
+                listCOD.addElement(((Empleado)persona).getCodD());
             else
                 listCOD.addElement(" ");
             listnio.addElement(((Empleado)persona).anio());
         }
     }
-    
+    private void estado_btn(boolean btnG,boolean btnN,boolean btnM,boolean btnE, boolean btnS){
+        btnGuardar.setEnabled(btnG);
+        btnNuevoEmp.setEnabled(btnN);
+        btnEditarEmp.setEnabled(btnM);
+        btnEliminarEmp1.setEnabled(btnE);
+        btnSalir.setEnabled(true);
+    }
+    private int validad(String dni, String nom, String ape, String cargo, String pass){
+        int i =0;
+        if(dni.equals("")){
+           i++; 
+        }
+        if(nom.equals("")){
+           i++; 
+        }
+        if(ape.equals("")){
+           i++; 
+        }
+        if(cargo.isEmpty()){
+           i++; 
+        }
+        if(pass.isEmpty()){
+           i++; 
+        }
+        return i;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,7 +159,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         ListAnio = new javax.swing.JList<>();
 
-        jpopEdit.setText("Editar");
+        jpopEdit.setText("Enviar");
         jpopEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jpopEditActionPerformed(evt);
@@ -308,6 +341,11 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         listCodigo.setComponentPopupMenu(jPopupMenu1);
+        listCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listCodigoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listCodigo);
 
         listNombres.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombres"));
@@ -494,7 +532,7 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
         enviar(per.get(i));
         limpiar_model();
         cargar_listas();
-        edit(false);
+        estado_btn(false,true,false,false, true);
 
     }//GEN-LAST:event_btnEditarEmpActionPerformed
 
@@ -523,7 +561,8 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
     }
     
     private void btnNuevoEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoEmpActionPerformed
-        btnGuardar.setEnabled(true);
+        limpiar();
+        estado_btn(true,false,false,false, true);
         edit(true);
         if (listCod.size()==0)
         {
@@ -535,25 +574,35 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnNuevoEmpActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+       //definir el formato de la fecha
        LocalDateTime ldt = LocalDateTime.now();
        String fecha = ldt.format(formato_Fec);
-       
-       int cod = Integer.parseInt(txtCodigo.getText());
-       int dni = Integer.parseInt(txtDNI.getText());
+       // obtener los datos ingresados a traves del formulario
+       int codD=0;
+       if(cbxCargo.getSelectedIndex()==1) codD = Integer.parseInt(txtCod.getText());
+       else codD = 0;
        String nom = txtNombre.getText();
        String ape = txtApellido.getText();
        String cargo = cbxCargo.getSelectedItem().toString();
-       int codD;
        String pass = txtContrasena.getPassword().toString();
-       int est =5;
-       if(cbxCargo.getSelectedIndex()==1) codD = Integer.parseInt(txtCod.getText());
-       else codD = 0;
-       Persona p = new Empleado(dni,nom,ape,fecha,cod, cargo,est,codD,pass);
-       per.add(p);
-       limpiar_model();
-       cargar_listas();
-       txtCodigo.setText(tamaño()+1+"");
-       edit(false);
+       int est =1;
+       int validar = validad(txtDNI.getText(),nom, ape,cargo,pass);
+       if(validar ==0){
+           //al ser parseados, necesariamente deben tener un valor ingresado
+            int cod = Integer.parseInt(txtCodigo.getText());
+            int dni = Integer.parseInt(txtDNI.getText());
+            Persona p = new Empleado(dni,nom,ape,fecha,cod, cargo,est,codD,pass);
+            per.add(p);
+            limpiar_model();
+            cargar_listas();
+            txtCodigo.setText(tamaño()+1+"");
+            edit(false);
+            estado_btn(false,true,false,false, true);
+       }
+       else{
+            JOptionPane.showMessageDialog(null,"faltan datos");
+       }
+       
        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -571,10 +620,12 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEliminarEmp1ActionPerformed
 
     private void jpopEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jpopEditActionPerformed
+        
         if(listCodigo.isSelectionEmpty()){
             JOptionPane.showMessageDialog(null,"Por favor, Seleccione un codigo");
         }
         else{
+            estado_btn(false,false,true,true, true);
             
             int i = listCodigo.getSelectedIndex();
             obtener(per.get(i));
@@ -585,6 +636,10 @@ public class frmEmpleado extends javax.swing.JInternalFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void listCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listCodigoMouseClicked
+        
+    }//GEN-LAST:event_listCodigoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

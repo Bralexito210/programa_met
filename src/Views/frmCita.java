@@ -10,6 +10,10 @@ import javax.swing.table.DefaultTableModel;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import javax.swing.RowFilter;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 /**
  *
  * @author david
@@ -18,14 +22,16 @@ public class frmCita extends javax.swing.JInternalFrame {
     public static Cliente cli;
     DefaultTableModel dtmCita= new DefaultTableModel();
     DateTimeFormatter formateador = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    DefaultTableModel modelo;
+    TableRowSorter<TableModel> elQueOrdena;
     //String dato = 
     /**
      * Creates new form frmCita
      */
     public frmCita() {
         initComponents();
-        llenaCabecera();
-     
+        jDateChooser1.setMinSelectableDate(new Date());
+        tabla();
     }
     
     public void llenaCabecera(){
@@ -65,8 +71,9 @@ public class frmCita extends javax.swing.JInternalFrame {
         jTextField1 = new javax.swing.JTextField();
         btnBuscarCliente = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jTextField3 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
@@ -128,7 +135,7 @@ public class frmCita extends javax.swing.JInternalFrame {
 
         jPanel7.setBackground(new java.awt.Color(51, 255, 255));
 
-        jCalendar1.setDate(new java.util.Date(1697761245000L));
+        jCalendar1.setDate(java.sql.Date.valueOf(formateador.format(LocalDateTime.now())));
         jCalendar1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jCalendar1PropertyChange(evt);
@@ -199,7 +206,7 @@ public class frmCita extends javax.swing.JInternalFrame {
                     .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +229,7 @@ public class frmCita extends javax.swing.JInternalFrame {
 
         jDateChooser1.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha "));
 
-        jLabel6.setText("jLabel6");
+        jLabel6.setText("Buscar DNI");
 
         jTextField1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
@@ -236,14 +243,11 @@ public class frmCita extends javax.swing.JInternalFrame {
 
         jButton1.setText("Nuevo");
 
-        jTextField3.setText("jTextField3");
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
+        jLabel7.setText("motivo");
 
-        jLabel7.setText("jLabel7");
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jLabel8.setText("jLabel8");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -253,22 +257,29 @@ public class frmCita extends javax.swing.JInternalFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(30, 30, 30)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(38, 38, 38))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addGap(58, 58, 58)))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
+                                .addComponent(btnBuscarCliente)
+                                .addGap(47, 47, 47))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(38, 38, 38)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(btnBuscarCliente)
-                        .addGap(47, 47, 47))))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -278,15 +289,20 @@ public class frmCita extends javax.swing.JInternalFrame {
                     .addComponent(jLabel6)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBuscarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(jLabel8)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
+                    .addComponent(jLabel7)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
+                .addContainerGap(140, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -298,7 +314,7 @@ public class frmCita extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,28 +377,75 @@ public class frmCita extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tabla(){
+        String[] columna = {"Hora","DNI","Nombres","Tratamiento","Fecha"};
+        String[][] fila= {
+                        {"10:39:33","95804238","Ignacio Antunez ","revision","22/11/2023"},
+                        {"12:35:44","77813961","Naiara Capdevila","revision","17/11/2023"},
+                        {"14:47:28","81693397","Carolina Revuelta","revision","01/11/2023"},
+                        {"11:59:36","47010017","Nora Candela","revision","17/11/2023"},
+                        {"13:45:05","41614813","Maria Cruz","revision","21/11/2023"},
+                        {"12:44:15","79142665","Florentino Bernal","revision","11/11/2023"},
+                        {"14:33:12","37029120","Alfredo Minguez","tratamiento","25/11/2023"},
+                        {"08:21:43","95234064","Ariadna Menéndez","tratamiento","27/11/2023"},
+                        {"14:04:50","34769706","Camilo Cornejo ","revision","09/11/2023"},
+                        {"14:47:43","95930382","Diego Sauceda ","tratamiento","26/11/2023"},
+                        {"15:20:10","11818391","Mariangel Torres ","revision","13/11/2023"},
+                        {"12:25:44","96331390","Regina Sarabia ","tratamiento","22/11/2023"},
+                        {"13:44:11","79491867","Ana Paula Gómez ","revision","21/11/2023"},
+                        {"12:31:37","56662977","Ricardo Pulido ","revision","22/11/2023"},
+                        {"16:24:30","28999866","Valentín Solorzano ","revision","29/11/2023"},
+                        {"13:33:58","59128917","Delfina Arreola ","tratamiento","01/11/2023"},
+                        {"13:33:58","59128917","1/11/2023 ","tratamiento","01/11/2023"}
+                        };
+        /*
+        modelo.addColumn(columna);
+        modelo.addRow(fila);
+        
+        tblCita.setModel(modelo);
+        */
+        modelo = new DefaultTableModel(fila,columna);
+        tblCita.setModel(modelo);
+        /*
+        TableColumn Fecha = tblCita.getColumnModel().getColumn(4);
+        Fecha.setMaxWidth(0);
+        Fecha.setMinWidth(0);
+        Fecha.setPreferredWidth(0);
+        tblCita.doLayout();*/
+        
+        tblCita.setAutoCreateRowSorter(true);
+        elQueOrdena = new TableRowSorter<>(modelo);
+        tblCita.setRowSorter(elQueOrdena);
+        
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        Date date = java.sql.Date.valueOf(formateador.format(LocalDateTime.now()));
        jCalendar1.setDate(date);
        System.out.print(date+"\n");
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void filtra(String index){
+        try{
+            elQueOrdena.setRowFilter(RowFilter.regexFilter(index,4));
+        }catch(Exception e){}
+    }
+    
     private void jCalendar1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jCalendar1PropertyChange
         //si el ultimo valor seleccionado es nulo
         //no ha seleecionado ningun valor
         if(evt.getOldValue() != null){
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            jTextField2.setText(sdf.format(jCalendar1.getCalendar().getTime()));
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            System.out.println(sdf.format(jCalendar1.getCalendar().getTime()));
+            //((Object)myInteger).getClass().getSimpleName()
+            System.out.println(sdf.format(((Object)jCalendar1.getCalendar().getTime())).getClass().getSimpleName());
+            filtra(sdf.format(jCalendar1.getCalendar().getTime()));
         }
     }//GEN-LAST:event_jCalendar1PropertyChange
 
     private void btnBuscarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarClienteActionPerformed
         // buscar en los datos almacenados
     }//GEN-LAST:event_btnBuscarClienteActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -394,6 +457,7 @@ public class frmCita extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private com.toedter.calendar.JCalendar jCalendar1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -402,6 +466,7 @@ public class frmCita extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -412,7 +477,6 @@ public class frmCita extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     protected static javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
-    protected static javax.swing.JTextField jTextField3;
     private javax.swing.JTable tblCita;
     // End of variables declaration//GEN-END:variables
 }

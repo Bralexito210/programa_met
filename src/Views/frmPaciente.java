@@ -587,15 +587,7 @@ public class frmPaciente extends javax.swing.JInternalFrame {
             dtmPaciente.addRow(vec);
         }
     }
-    /*
-    dtmPaciente.addColumn("DNI");
-        dtmPaciente.addColumn("Nombres");
-        dtmPaciente.addColumn("Apellidos");
-        dtmPaciente.addColumn("Edad");
-        dtmPaciente.addColumn("Genero");
-        dtmPaciente.addColumn("Direccion");
     
-    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup RbtnGrupo;
