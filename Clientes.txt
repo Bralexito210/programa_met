@@ -1,0 +1,96 @@
+72305530;david;guevara;30/07/1996;av vida 1232;Hombre
+64157655;Camila;Alcaraz;24/10/2005;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+51691961;Nadia;Arce;24/06/2005;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+80012213;Juana;Camacho;26/02/2005;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+53194862;Lucas;Tapia;25/11/2005;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+55490509;Florencia;Iglesias;25/02/2005;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+82816802;Nahuel;Nájera;26/02/2005;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+63824268;Allison;Valles;24/04/2005;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+62754171;Julia;Mena;26/01/2005;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+70001968;Rodrigo;Maldonado;23/11/1984;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+52673797;Sofía;Ruelas;24/02/1984;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+52321842;Camila;Alcaraz;24/10/1984;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+64372363;Nadia;Arce;24/06/1984;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+65078958;Juana;Camacho;26/02/1984;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+73280208;Lucas;Tapia;25/11/1984;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+53391764;Florencia;Iglesias;25/02/1984;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+82583920;Nahuel;Nájera;26/02/1984;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+71130121;Allison;Valles;24/04/1984;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+73648457;Julia;Mena;26/01/1984;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+61336714;Rodrigo;Maldonado;23/11/1977;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+74498828;Sofía;Ruelas;24/02/1977;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+80886023;Camila;Alcaraz;24/10/1977;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+54504798;Nadia;Arce;24/06/1977;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+87808931;Juana;Camacho;26/02/1977;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+88729728;Lucas;Tapia;25/11/1977;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+80181717;Florencia;Iglesias;25/02/1977;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+98005448;Nahuel;Nájera;26/02/1977;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+91381464;Allison;Valles;24/04/1977;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+66528736;Julia;Mena;26/01/1977;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+51724125;Rodrigo;Maldonado;23/11/2005;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+95882550;Sofía;Ruelas;24/02/2005;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+52328634;Camila;Alcaraz;24/10/2005;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+57343810;Nadia;Arce;24/06/2005;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+87547841;Juana;Camacho;26/02/2005;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+54961627;Lucas;Tapia;25/11/2005;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+86583793;Florencia;Iglesias;25/02/2005;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+94727356;Nahuel;Nájera;26/02/2005;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+95565194;Allison;Valles;24/04/2005;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+93031526;Julia;Mena;26/01/2005;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+66391045;Rodrigo;Maldonado;23/11/2009;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+79313218;Sofía;Ruelas;24/02/2009;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+61705777;Camila;Alcaraz;24/10/2009;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+72383295;Nadia;Arce;24/06/2009;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+84597866;Juana;Camacho;26/02/2009;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+54501270;Lucas;Tapia;25/11/2009;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+87788136;Florencia;Iglesias;25/02/2009;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+73713576;Nahuel;Nájera;26/02/2009;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+64642942;Allison;Valles;24/04/2009;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+79021334;Julia;Mena;26/01/2009;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+57796075;Rodrigo;Maldonado;23/11/2014;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+75246667;Sofía;Ruelas;24/02/2014;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+65307401;Camila;Alcaraz;24/10/2014;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+76939653;Nadia;Arce;24/06/2014;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+78041735;Juana;Camacho;26/02/2014;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+97086830;Lucas;Tapia;25/11/2014;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+71411315;Florencia;Iglesias;25/02/2014;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+81924666;Nahuel;Nájera;26/02/2014;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+90950324;Allison;Valles;24/04/2014;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+88219494;Julia;Mena;26/01/2014;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+74606947;Rodrigo;Maldonado;23/11/2003;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+79332831;Sofía;Ruelas;24/02/2003;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+50377359;Camila;Alcaraz;24/10/2003;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+86056295;Nadia;Arce;24/06/2003;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+74351014;Juana;Camacho;26/02/2003;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+79140017;Lucas;Tapia;25/11/2003;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+55854308;Florencia;Iglesias;25/02/2003;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+80817046;Nahuel;Nájera;26/02/2003;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+58961319;Allison;Valles;24/04/2003;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+52465627;Julia;Mena;26/01/2003;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+71024790;Rodrigo;Maldonado;23/11/1995;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+88211186;Sofía;Ruelas;24/02/1995;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+83873662;Camila;Alcaraz;24/10/1995;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+71146090;Nadia;Arce;24/06/1995;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+77921078;Juana;Camacho;26/02/1995;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+77823240;Lucas;Tapia;25/11/1995;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+50957774;Florencia;Iglesias;25/02/1995;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+94422914;Nahuel;Nájera;26/02/1995;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+83847139;Allison;Valles;24/04/1995;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+74889104;Julia;Mena;26/01/1995;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+73762632;Rodrigo;Maldonado;23/11/2003;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+53549745;Sofía;Ruelas;24/02/2003;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+92185000;Camila;Alcaraz;24/10/2003;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+59802603;Nadia;Arce;24/06/2003;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+62694791;Juana;Camacho;26/02/2003;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+83158633;Lucas;Tapia;25/11/2003;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+57512998;Florencia;Iglesias;25/02/2003;Cl. Josefina Osorio # 1 Madrid Este;Mujer
+97796050;Nahuel;Nájera;26/02/2003;Urb. Isabella Pedroza # 4 Hab. 334 Alva Baja;Hombre
+70885184;Allison;Valles;24/04/2003;Cl. Mariangel Cabrera # 828 Dpto. 198 Puerto Juan Diego;Mujer
+60965089;Julia;Mena;26/01/2003;Cl. Benjamín Garrido # 5977 Hidalgo Baja;Mujer
+70985307;Rodrigo;Maldonado;23/11/1979;Urb. Emilio Estrada # 2 Piso 5 Griego Este;Hombre
+76173007;Sofía;Ruelas;24/02/1979;Av. Micaela Leal # 7 Dpto. 858 Gral. Manuela;Mujer
+61605167;Camila;Alcaraz;24/10/1979;Cl. Constanza Mota # 1 Dpto. 747 Leyva Baja;Mujer
+73356469;Nadia;Arce;24/06/1979;Jr. María Vargas # 35 Piso 0 Cristóbal Oeste;Mujer
+89826812;Juana;Camacho;26/02/1979;Jr. Allison Almaraz # 3535 Zapata Oeste;Mujer
+93675002;Lucas;Tapia;25/11/1979;Av. David Narváez # 0 Dpto. 289 Esquivel Alta;Hombre
+72305530;david ;guevara;02/12/2023;asd;Hombre

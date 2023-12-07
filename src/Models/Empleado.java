@@ -23,6 +23,15 @@ public class Empleado extends Persona {
         this.contraseña = contraseña;
     }
 
+    public Empleado( int DNI,String nombre,String apellido,String contraseña,String cargo) {
+        super(DNI,nombre,apellido);
+        this.contraseña = contraseña;
+        this.cargo = cargo;
+    }
+    public Empleado() {
+    }
+    
+
     public int getCodigo() {
         return codigo;
     }
@@ -30,7 +39,9 @@ public class Empleado extends Persona {
     public String getCargo() {
         return cargo;
     }
-
+    public String getnombre() {
+        return super.getNombre();
+    }
 
     public int getEstado() {
         return estado;
@@ -69,6 +80,21 @@ public class Empleado extends Persona {
     public String anio() {
         return super.getAnio();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Empleado{");
+        sb.append("codigo=").append(codigo);
+        sb.append(", cargo=").append(cargo);
+        sb.append(", estado=").append(estado);
+        sb.append(", codD=").append(codD);
+        sb.append(", contrase\u00f1a=").append(contraseña);
+        sb.append('}');
+        return sb.toString();
+    }
+
+
     
     
     

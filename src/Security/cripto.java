@@ -22,7 +22,6 @@ public class cripto {
                 }
             else
                 arr1[i]= (byte)(arr[i] + des); 
-            System.out.print(arr1[i]+" ");
         }
         String s = new String(arr1, StandardCharsets.ISO_8859_1);
         return s;
