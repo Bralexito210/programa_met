@@ -20,6 +20,19 @@ public abstract class Persona {
         this.apellido = apellido;
         this.anio = anio;
     }
+    public Persona(int DNI, String nombre, String apellido) {
+        this.DNI = DNI;
+        this.nombre = nombre;
+        this.apellido = apellido;
+    }
+
+    public Persona(int DNI) {
+        this.DNI = DNI;
+    }
+    
+
+    public Persona() {
+    }
 
     public int getDNI() {
         return DNI;
@@ -54,5 +67,10 @@ public abstract class Persona {
     }
     
     public abstract String anio();
+
+    @Override
+    public String toString() {
+        return "Persona{" + "DNI=" + DNI + ", nombre=" + nombre + ", apellido=" + apellido + ", anio=" + anio + '}';
+    }
     
  }

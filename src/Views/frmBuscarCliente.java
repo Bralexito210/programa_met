@@ -4,8 +4,11 @@
  */
 package Views;
 
+import Controllers.ClienteDAO;
 import Models.Cliente;
 import javax.swing.RowFilter;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -15,12 +18,14 @@ import javax.swing.table.TableRowSorter;
  * @author david
  */
 public class frmBuscarCliente extends javax.swing.JInternalFrame {
-    
-    DefaultTableModel modelo;
+    ClienteDAO oclie=new ClienteDAO("Clientes.txt");
+    DefaultTableModel modelo= new DefaultTableModel();;
     TableRowSorter<TableModel> elQueOrdena;
     public frmBuscarCliente() {
         initComponents();
-        tabla();
+        llenaCabecera();
+        llenar();
+        //espaciado();
     }
 
     /**
@@ -54,6 +59,14 @@ public class frmBuscarCliente extends javax.swing.JInternalFrame {
                 "DNI", "Nombres", "Apellidos"
             }
         ));
+        jTable1 = new javax.swing.JTable(){
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jTable1.getTableHeader().setResizingAllowed(false);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 320, 360));
@@ -66,7 +79,7 @@ public class frmBuscarCliente extends javax.swing.JInternalFrame {
 
         jLabel1.setText("buscar:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Codigo", "Dni", "Nombre", "Apellido" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccione--", "Dni", "Nombre", "Apellido" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -99,28 +112,44 @@ public class frmBuscarCliente extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tabla(){
-        String[] columna = {"Codigo","DNI","Nombres","Apellido","dirreccion","sexo"};
-        String[][] fila= {{"1","28061842","Ignacio","Antunez","viva 451","0"},
-                        {"2","65829679","Naiara","Capdevila","coma 452","0"},
-                        {"3","27193969","Carolina","Revuelta","vista 741","0"},
-                        {"4","51556520","Nora","Candela","coma 452","0"},
-                        {"5","79774348","Maria Cruz","Bernal","coma 452","0"},
-                        {"6","24535509","Florentino","Bernal","santo 452","0"},
-                        {"7","61794396","Alfredo","Minguez","bever 452","0"},
-                        };
-        modelo = new DefaultTableModel(fila,columna);
+    private void llenaCabecera(){
+        modelo.addColumn("DNI");
+        modelo.addColumn("Nombres");
+        modelo.addColumn("Apellidos");
         jTable1.setModel(modelo);
         jTable1.setAutoCreateRowSorter(true);
         elQueOrdena = new TableRowSorter<>(modelo);
         jTable1.setRowSorter(elQueOrdena);
     }
-    
+    private void llenar(){
+        modelo.setRowCount(0);
+        for (int i = 0; i < oclie.tamaño(); i++) {
+                Object vec[] = new Object[3];
+                vec[0] = oclie.obtener(i).getDNI();
+                vec[1] = oclie.obtener(i).getNombre();
+                vec[2] = oclie.obtener(i).getApellido();
+                //Agregar elementos al JTable
+                modelo.addRow(vec);
+            }
+            jTable1.setModel(modelo);
+        //modelo = new DefaultTableModel(fila,columna);
+        
+    }
+    private void espaciado(){
+
+        jTable1.getColumn("DNI").setPreferredWidth(70);
+        jTable1.getColumn("Nombres").setPreferredWidth(110);
+        jTable1.getColumn("Apellidos").setPreferredWidth(120);
+    }
+    private void centrar(){
+        DefaultTableCellRenderer modelocentrar = new DefaultTableCellRenderer();
+        modelocentrar.setHorizontalAlignment(SwingConstants.CENTER);
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(modelocentrar); 
+
+    }
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         int index = jComboBox1.getSelectedIndex();
-        if(index==0)
-            filtra(0);
+        if(index==0){} 
         else
             filtra(index-1);
     }//GEN-LAST:event_jTextField1KeyReleased

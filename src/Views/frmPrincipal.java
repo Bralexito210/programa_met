@@ -4,7 +4,8 @@
  */
 package Views;
 
-import Models.Cliente;
+import Controllers.ClienteDAO;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -13,26 +14,34 @@ import java.time.format.DateTimeFormatter;
  * @author david
  */
 public class frmPrincipal extends javax.swing.JFrame {
+    ClienteDAO oclie=new ClienteDAO("Clientes.txt");
     DateTimeFormatter formateador = DateTimeFormatter.ofPattern("HH:mm:ss");
-    Object[] user= frmLogin.user;
+    public static Object[] user= frmLogin.user;
     public frmPrincipal() {
-        //setLocationRelativeTo(null);
         initComponents();
-        jtxtcargo.setText("asd");
-        jtxtnom.setText("asd");
-        //this.setExtendedState(MAXIMIZED_BOTH);
-        nombre(user);
+        frmLogin.user=null;
+        setLocationRelativeTo(null);
+        //acceso(user);
+        nombre();
         hora();
+        
     }
-
-    private void nombre(Object[] user){
+    private void acceso(Object[] user){
+       btnFrmTratamiento.setVisible(false);
+       btnFrmEmpleado.setVisible(false);
+       jtxtMedico.setVisible(false);
+    }
+    
+    private void nombre(){
         if(user!=null){
-            jtxtcargo.setText(user[0].toString());
-            jtxtnom.setText(user[1].toString());
+            jtxtnom.setText(user[0].toString());
+            jtxtcargo.setText(user[1].toString());
         }
         else{
-            jtxtcargo.setText("no definido");
-            jtxtnom.setText("no definido");
+            //nom, cargo, dni
+            user = new String[]{"david1","asistente","999"};
+            jtxtnom.setText(user[0].toString());
+            jtxtcargo.setText(user[1].toString());
         }
     }
     
@@ -47,107 +56,170 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton2 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jtxtcargo = new javax.swing.JLabel();
+        btnFrmEmpleado = new javax.swing.JButton();
+        btnFrmCita = new javax.swing.JButton();
+        btnFrmBuscarCli = new javax.swing.JButton();
+        btnFrmPaciente = new javax.swing.JButton();
+        btnFrmTratamiento = new javax.swing.JButton();
         jtxtnom = new javax.swing.JLabel();
+        jtxtcargo = new javax.swing.JLabel();
         jtxtHora = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
+        jtxtMedico = new javax.swing.JLabel();
+        jtxtAsistente = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
-        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButton2.setText("Buscar Cliente");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jDesktopPane1.setDoubleBuffered(true);
+
+        btnFrmEmpleado.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        btnFrmEmpleado.setText("Empleado");
+        btnFrmEmpleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnFrmEmpleadoActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
-        jButton1.setText("Cita");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnFrmCita.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        btnFrmCita.setText("Cita");
+        btnFrmCita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnFrmCitaActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButton3.setText("Tratante");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnFrmBuscarCli.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        btnFrmBuscarCli.setText("Buscar Cliente");
+        btnFrmBuscarCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnFrmBuscarCliActionPerformed(evt);
             }
         });
 
-        jtxtcargo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jtxtcargo.setText("jLabel2");
+        btnFrmPaciente.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        btnFrmPaciente.setText("Paciente");
+        btnFrmPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFrmPacienteActionPerformed(evt);
+            }
+        });
+
+        btnFrmTratamiento.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        btnFrmTratamiento.setText("Tratamiento");
+        btnFrmTratamiento.setPreferredSize(new java.awt.Dimension(222, 50));
+        btnFrmTratamiento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFrmTratamientoActionPerformed(evt);
+            }
+        });
 
         jtxtnom.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jtxtnom.setText("jLabel1");
+        jtxtnom.setText("David");
+
+        jtxtcargo.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jtxtcargo.setText("Asistente");
 
         jtxtHora.setFont(new java.awt.Font("Lucida Console", 1, 18)); // NOI18N
         jtxtHora.setForeground(new java.awt.Color(255, 0, 0));
         jtxtHora.setText("HH:MM:SS");
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jButton4.setText("Empleado");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        jtxtMedico.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jtxtMedico.setText("Medico");
 
-        jDesktopPane1.setLayer(jButton2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jtxtcargo, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jtxtAsistente.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jtxtAsistente.setText("Asistente");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jLabel3.setText("falta  Tratamiento");
+
+        jDesktopPane1.setLayer(btnFrmEmpleado, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnFrmCita, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnFrmBuscarCli, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnFrmPaciente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(btnFrmTratamiento, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jtxtnom, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtxtcargo, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(jtxtHora, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jDesktopPane1.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtxtMedico, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jtxtAsistente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(jLabel3, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addContainerGap(462, Short.MAX_VALUE)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(242, 242, 242))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jtxtcargo, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                    .addComponent(jtxtnom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jtxtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(jtxtcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jtxtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtxtnom, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(243, 243, 243)
+                        .addComponent(jtxtAsistente, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(btnFrmPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(btnFrmCita, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(92, 92, 92)
+                        .addComponent(btnFrmBuscarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 374, Short.MAX_VALUE)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(185, 185, 185)
+                        .addComponent(jtxtMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(btnFrmTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(84, 84, 84)
+                        .addComponent(btnFrmEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3))
+                .addGap(196, 196, 196))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(273, 273, 273)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
-                .addComponent(jtxtcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jtxtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jtxtAsistente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addComponent(jtxtnom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(16, 16, 16))))
+                        .addGap(11, 11, 11)
+                        .addComponent(jtxtMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(btnFrmPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnFrmTratamiento, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFrmCita, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnFrmEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnFrmBuscarCli, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel3)))
+                .addGap(203, 203, 203)
+                .addComponent(jtxtnom, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25)
+                .addComponent(jtxtcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jtxtHora, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         getContentPane().add(jDesktopPane1, java.awt.BorderLayout.CENTER);
@@ -173,49 +245,57 @@ public class frmPrincipal extends javax.swing.JFrame {
         hilo.start();
     }
     
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnFrmBuscarCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrmBuscarCliActionPerformed
         
         frmBuscarCliente m = new frmBuscarCliente();
         m.setClosable(true);
-        m.setResizable(true);
+        m.setResizable(false);
         jDesktopPane1.add(m);
         m.setVisible(true);
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnFrmBuscarCliActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnFrmCitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrmCitaActionPerformed
        
         frmCita m = new frmCita();
         
         m.setClosable(true);
-        m.setResizable(true);
+        m.setResizable(false);
         jDesktopPane1.add(m);
         m.setVisible(true);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnFrmCitaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnFrmPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrmPacienteActionPerformed
+        
         frmPaciente m = new frmPaciente();
         m.setClosable(true);
-        m.setResizable(true);
+        m.setResizable(false);
         jDesktopPane1.add(m);
         m.setVisible(true);
         
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         
+    }//GEN-LAST:event_btnFrmPacienteActionPerformed
+
+    private void btnFrmEmpleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrmEmpleadoActionPerformed
+    
         frmEmpleado m = new frmEmpleado();
-        m.setClosable(true);
-        m.setResizable(true);
+        m.setClosable(false);
         jDesktopPane1.add(m);
+        m.setResizable(false);
         m.setVisible(true);
         
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnFrmEmpleadoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnFrmTratamientoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFrmTratamientoActionPerformed
+        frmTratamiento m = new frmTratamiento();
+        m.setClosable(true);
+        m.setResizable(false);
+        jDesktopPane1.add(m);
+        m.setVisible(true);
+    }//GEN-LAST:event_btnFrmTratamientoActionPerformed
+
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -250,12 +330,16 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btnFrmBuscarCli;
+    private javax.swing.JButton btnFrmCita;
+    private javax.swing.JButton btnFrmEmpleado;
+    private javax.swing.JButton btnFrmPaciente;
+    private javax.swing.JButton btnFrmTratamiento;
     public static javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jtxtAsistente;
     private javax.swing.JLabel jtxtHora;
+    private javax.swing.JLabel jtxtMedico;
     private javax.swing.JLabel jtxtcargo;
     private javax.swing.JLabel jtxtnom;
     // End of variables declaration//GEN-END:variables

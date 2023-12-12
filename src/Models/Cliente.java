@@ -17,12 +17,19 @@ public class Cliente extends Persona {
     private String dirreccion; // para realizar visitas si se planea ocmo politicas
     private String sexo;
 
-
+    //{"Codigo","DNI","Nombres","Apellido","dirreccion","sexo"}
     public Cliente(int DNI, String nombre, String apellido,String anio, String dirreccion, String sexo) {
         super(DNI, nombre, apellido,anio);
         this.dirreccion = dirreccion;
         this.sexo = sexo;
     }
+    public Cliente(int DNI, String nombre, String apellido) {
+        super(DNI, nombre, apellido);
+    }
+
+    public Cliente() {
+    }
+
 
     public String getDirreccion() {
         return dirreccion;
@@ -47,7 +54,6 @@ public class Cliente extends Persona {
         LocalDate localDate = LocalDate.parse(super.getAnio(), formatter);
         LocalDate ahora = LocalDate.now();
         Period periodo = Period.between(localDate, ahora);
-
         return periodo.getYears()+"";
     }
     

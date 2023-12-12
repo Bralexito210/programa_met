@@ -1,0 +1,5 @@
+5;5;5;17/11/2023;1;Asistente;1;0;U
+74185252;41;41;18/11/2023;3;Dentinta;1;41;TQ
+852741;martin;tinte;21/11/2023;4;Asistente;1;0;[C@6472301d
+72305530;david 1;guevara 2;03/12/2023;5;Asistente;1;0;QRSQRS
+1;1;1;03/12/2023;5;Asistente;1;0;Q

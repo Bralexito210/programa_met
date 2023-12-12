@@ -4,36 +4,36 @@
  */
 package Views;
 
+import Controllers.ClienteDAO;
+
 import Models.Cliente;
 import Models.Persona;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.text.SimpleDateFormat;  
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import java.text.DateFormat; 
-import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author david
  */
-public class frmPaciente extends javax.swing.JInternalFrame {
-
+public final class frmPaciente extends javax.swing.JInternalFrame {
+    ClienteDAO oclie=new ClienteDAO("Clientes.txt");
     DefaultTableModel dtmPaciente= new DefaultTableModel();
     TableRowSorter<DefaultTableModel> sorter;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");    
-    private ArrayList<Persona> cli;
+    Persona per = new Cliente();    
+    int registro_dni=-1;
+    String genero="";
     public frmPaciente() {
-        cli = new ArrayList<Persona>();
+
         initComponents();
         grupoGenero();
         llenaCabecera();
+        llena();
         edit(false);
         estado_btn(true,false,false,true);
     }
@@ -46,12 +46,32 @@ public class frmPaciente extends javax.swing.JInternalFrame {
         dtmPaciente.addColumn("Genero");
         dtmPaciente.addColumn("Direccion");
         
-        
         jtblCliente.setModel(dtmPaciente);
         jtblCliente.setAutoCreateRowSorter(true);
         sorter = new TableRowSorter<>(dtmPaciente);
         jtblCliente.setRowSorter(sorter);
+
     }
+    public void llena(){
+        if (oclie.tamaño() == 0) {
+            JOptionPane.showMessageDialog(this, "Lista sin Elementos!", "Validar", 2);
+        } else {
+            dtmPaciente.setRowCount(0);//Limpia las filas del JTable
+            for (int i = 0; i < oclie.tamaño(); i++) {
+                Object vec[] = new Object[6];
+                vec[0] = oclie.obtener(i).getDNI();
+                vec[1] = oclie.obtener(i).getNombre();
+                vec[2] = oclie.obtener(i).getApellido();
+                vec[3] = oclie.obtener(i).getAnio();
+                vec[4] = ((Cliente)oclie.obtener(i)).getSexo();
+                vec[5] = ((Cliente)oclie.obtener(i)).getDirreccion();
+                //Agregar elementos al JTable
+                dtmPaciente.addRow(vec);
+            }
+            jtblCliente.setModel(dtmPaciente);
+        }
+    }
+    
     private void grupoGenero(){
         RbtnGrupo.add(jRbtnH);
         RbtnGrupo.add(jRbtnM);
@@ -131,12 +151,9 @@ public class frmPaciente extends javax.swing.JInternalFrame {
         btnModificar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jtblCliente = new javax.swing.JTable();
         btnCerrar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtblCliente = new javax.swing.JTable();
 
         popEdit.setText("editar");
         popEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +176,12 @@ public class frmPaciente extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(153, 255, 153));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(51, 153, 255)), javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1)), "Datos Tratante"));
+
+        jtxtDNI.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtDNIKeyTyped(evt);
+            }
+        });
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)), "Genero"));
 
@@ -365,20 +388,6 @@ public class frmPaciente extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 0));
 
-        jtblCliente.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "DNI", "Nombres", "Apellidos", "Direccion", "Nacimiento", "Genero"
-            }
-        ));
-        jtblCliente.setComponentPopupMenu(jPopupMenu1);
-        jScrollPane1.setViewportView(jtblCliente);
-
         btnCerrar.setText("Cerrar");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -386,54 +395,59 @@ public class frmPaciente extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Buscar");
+        jtblCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                jTextField1KeyReleased(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        jtblCliente = new javax.swing.JTable(){
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        jtblCliente.setComponentPopupMenu(jPopupMenu1);
+        jtblCliente.getTableHeader().setResizingAllowed(false);
+        jtblCliente.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jtblCliente);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(20, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(139, 139, 139))
+                .addGap(198, 198, 198)
+                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                .addGap(15, 15, 15))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 400, 540));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 620, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -443,18 +457,25 @@ public class frmPaciente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        
+      
         if(jtxtDNI.getText().isEmpty()){ // si esta vacio
             JOptionPane.showMessageDialog(null,"Por favor, ingresa un N° de DNI");
         }
         else{ // si esta vacio
-            int dni=Integer.parseInt(jtxtDNI.getText());
             if(jtblCliente.getRowCount() == 0){
                 JOptionPane.showMessageDialog(null,"la tabla esta vacia.");
             }
             else{
-                
-                //cli.get(i)
+                int dni=Integer.parseInt(jtxtDNI.getText());
+                int index=oclie.buscarDNI(dni);
+                if(index==-1){
+                    JOptionPane.showMessageDialog(null,"No se encuentra resgistrado.","Notificacion de Busqueda",1);
+                }
+                else{
+                    registro_dni=1;
+                    jtblCliente.clearSelection();
+                    jtblCliente.changeSelection(index, 0, closable, isIcon);
+                }              
             }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -474,69 +495,95 @@ public class frmPaciente extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null,"ingresa el DNI");
         }
         else{
-            
                 int dni = Integer.parseInt(jtxtDNI.getText());
-                String nom = txtNom.getText();
-                String ape = txtApe.getText();
-                String dir = txtaDir.getText();
-                
-                String nac = formato.format(jdcNac.getDate());
-                
-                String genero = genero();
-                int validar = validad(nom,ape, dir,nac,genero);
-                if(validar==0){
-                    Persona p = new Cliente(dni,nom,ape,nac, dir,genero);
-                    cli.add(p);
-                    cargar();
-                    estado_radio(false,false,false);
-                    estado_btn(true,false,false,true);
-                    edit(false);
-                    RbtnGrupo.clearSelection();
-                    jtxtDNI.setText("");
+                int index=oclie.buscarDNI(dni);
+                //-1 se procede con el registro
+                //else no se puede
+                if(index==-1){
+                    String nom = txtNom.getText();
+                    String ape = txtApe.getText();
+                    String dir = txtaDir.getText();
+
+                    String nac = formato.format(jdcNac.getDate());
+                    genero = genero();
+                    int validar = validad(nom, ape, dir, nac, genero);
+                    if (validar == 0) {
+                        Persona p = new Cliente(dni, nom, ape, nac, dir, genero);
+                        oclie.adicionar((Cliente) p);
+                        llena();
+                        oclie.grabar();
+                        estado_radio(false, false, false);
+                        estado_btn(true, false, false, true);
+                        edit(false);
+                        RbtnGrupo.clearSelection();
+                        jtxtDNI.setText("");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "faltan datos");
+                    }
                 }
                 else{
-                    JOptionPane.showMessageDialog(null,"faltan datos");
-                }
-            
+                   JOptionPane.showMessageDialog(null,"El cliente esta resgistrado.","Notificacion de Registro",1); 
+                } 
+ 
         }
 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void popEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popEditActionPerformed
-        estado_btn(false,false,true,false);
-        try {
-            int row = jtblCliente.getSelectedRow();
-            jtxtDNI.setText(dtmPaciente.getValueAt(row, 0).toString());
-            txtNom.setText(dtmPaciente.getValueAt(row, 1).toString());
-            txtApe.setText(dtmPaciente.getValueAt(row, 2).toString());
-            txtaDir.setText(dtmPaciente.getValueAt(row, 3).toString());
-            jdcNac.setDate(formato.parse(dtmPaciente.getValueAt(row, 4).toString()));
-            String gen = dtmPaciente.getValueAt(row, 5).toString();
-            if(gen.equals("Mujer")) estado_radio(false,true,false);
-            else if(gen.equals("Hombre")) estado_radio(true,false,false);
-            else if(gen.equals("no definido")) estado_radio(false,false,true);
-            edit(true);
+        int row = jtblCliente.getSelectedRow();
+        if(row==-1){
+            JOptionPane.showMessageDialog(null,"Por favo seleecionar una fila","Notificacion", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else{
+            estado_btn(false, false, true, false);
             jtblCliente.setEnabled(false);
-        } catch (ParseException ex) {
-            Logger.getLogger(frmPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+
+                jtxtDNI.setText(dtmPaciente.getValueAt(row, 0).toString());
+                txtNom.setText(dtmPaciente.getValueAt(row, 1).toString());
+                txtApe.setText(dtmPaciente.getValueAt(row, 2).toString());
+                txtaDir.setText(dtmPaciente.getValueAt(row, 5).toString());
+                jdcNac.setDate(formato.parse(dtmPaciente.getValueAt(row, 3).toString()));
+                String gen = dtmPaciente.getValueAt(row, 4).toString();
+                if (gen.equals("Mujer")) {
+                    estado_radio(false, true, false);
+                } else if (gen.equals("Hombre")) {
+                    estado_radio(true, false, false);
+                } else if (gen.equals("no definido")) {
+                    estado_radio(false, false, true);
+                }
+                edit(true);
+            } catch (ParseException ex) {
+                Logger.getLogger(frmPaciente.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_popEditActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        int row = jtblCliente.getSelectedRow();
-        dtmPaciente.setValueAt(jtxtDNI.getText(), row, 0);
-        dtmPaciente.setValueAt(txtNom.getText(), row, 1);
-        dtmPaciente.setValueAt(txtApe.getText(), row, 2);
-        dtmPaciente.setValueAt(txtaDir.getText(), row, 3);
-        dtmPaciente.setValueAt(formato.format(jdcNac.getDate()), row, 4);
-        dtmPaciente.setValueAt(genero(), row, 5);
+        //modificar los valores del puntero hacia la clase
+        int dni = Integer.parseInt(jtxtDNI.getText());
+        per=oclie.buscarCliente(dni);
+        // String nombre, String apellido,String anio, String dirreccion, String sexo
+        per.setDNI(dni);
+        per.setNombre(txtNom.getText());
+        per.setApellido(txtApe.getText());
+        per.setAnio(formato.format(jdcNac.getDate()));
+        ((Cliente)per).setDirreccion(txtaDir.getText());
+        ((Cliente)per).setSexo(genero());
+
+        oclie.grabar();
+        llena();
         //modificaciones visual interfaz
+        //modifar los accesos, faltan declarar el comportamiento de los enabled
         estado_btn(true,false,false,true);
         jtblCliente.setEnabled(true);
+        limpiar();
+        edit(false);
         RbtnGrupo.clearSelection();
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        per=null;
         RbtnGrupo.clearSelection();
         edit(false);
         limpiar();
@@ -545,20 +592,29 @@ public class frmPaciente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void popDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_popDelActionPerformed
-        
+        int i= JOptionPane.showConfirmDialog(this, "¿Esta seguro?", "Alerta!", JOptionPane.YES_NO_OPTION,JOptionPane.ERROR_MESSAGE);
+        if(i==1){
+            int row = jtblCliente.getSelectedRow();
+            int dni = parseInt(dtmPaciente.getValueAt(row, 0).toString());
+            per=oclie.buscarCliente(dni);
+            oclie.eliminar(per);
+            oclie.grabar();
+            llena(); 
+        }
+
     }//GEN-LAST:event_popDelActionPerformed
 
-    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
-        filtro();
-    }//GEN-LAST:event_jTextField1KeyReleased
-    private void filtro(){
-        int index = jComboBox1.getSelectedIndex();
-        try{
-            sorter.setRowFilter(RowFilter.regexFilter(jTextField1.getText(),index));
-        }catch(Exception ex){
-            
-                    }
-    }
+    private void jtxtDNIKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtDNIKeyTyped
+        int key = evt.getKeyChar();
+        boolean numero = key >= 48 && key <=57;
+        if(!numero){
+            evt.consume();
+        }
+        if (jtxtDNI.getText().trim().length() == 8) {
+        evt.consume();
+        }
+    }//GEN-LAST:event_jtxtDNIKeyTyped
+
     private String genero(){
         if(jRbtnH.isSelected()){ return "Hombre";}
         else if(jRbtnM.isSelected()){ return "Mujer";}
@@ -574,28 +630,10 @@ public class frmPaciente extends javax.swing.JInternalFrame {
         jRbtnM.setEnabled(est);
         jRbtnO.setEnabled(est);
     }
-    private void cargar(){
-        dtmPaciente.setRowCount(0);
-        for(Persona cliente: cli){
-            Object vec[]=new Object[6];
-            vec[0]=cliente.getDNI();
-            vec[1]=cliente.getNombre();
-            vec[2]=cliente.getApellido();
-            vec[5]=((Cliente)cliente).getDirreccion();
-            vec[3]=((Cliente)cliente).anio();
-            vec[4]=((Cliente)cliente).getSexo();
-            dtmPaciente.addRow(vec);
-        }
+
+    private int parseInt(String text){
+        return Integer.parseInt(text);
     }
-    /*
-    dtmPaciente.addColumn("DNI");
-        dtmPaciente.addColumn("Nombres");
-        dtmPaciente.addColumn("Apellidos");
-        dtmPaciente.addColumn("Edad");
-        dtmPaciente.addColumn("Genero");
-        dtmPaciente.addColumn("Direccion");
-    
-    */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup RbtnGrupo;
@@ -605,8 +643,6 @@ public class frmPaciente extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -621,9 +657,8 @@ public class frmPaciente extends javax.swing.JInternalFrame {
     private javax.swing.JRadioButton jRbtnH;
     private javax.swing.JRadioButton jRbtnM;
     private javax.swing.JRadioButton jRbtnO;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane jScrollPane3;
     private com.toedter.calendar.JDateChooser jdcNac;
     private javax.swing.JTable jtblCliente;
     private javax.swing.JTextField jtxtDNI;
